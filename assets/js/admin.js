@@ -2,7 +2,7 @@ class AdminPanel {
     constructor() {
         this.recipes = [];
         this.editingRecipe = null;
-        this.adminPassword = 'krishna123'; // In production, use proper authentication
+        this.adminPassword = 'krishna123';
         this.init();
     }
 
@@ -13,14 +13,12 @@ class AdminPanel {
 
     async loadRecipes() {
         try {
-            // Try to load from localStorage first (for recent changes)
             const localRecipes = localStorage.getItem('recipes');
             if (localRecipes) {
                 this.recipes = JSON.parse(localRecipes);
                 return;
             }
             
-            // Fallback to original JSON file
             const response = await fetch('data/recipes.json');
             this.recipes = await response.json();
         } catch (error) {
@@ -30,7 +28,6 @@ class AdminPanel {
     }
 
     setupEventListeners() {
-        // Primary image preview
         const primaryImageInput = document.querySelector('input[name="primaryImage"]');
         if (primaryImageInput) {
             primaryImageInput.addEventListener('input', (e) => {
@@ -44,7 +41,6 @@ class AdminPanel {
             });
         }
 
-        // Recipe form submission
         const recipeForm = document.getElementById('recipe-form');
         if (recipeForm) {
             recipeForm.addEventListener('submit', (e) => this.handleRecipeSubmit(e));
@@ -64,12 +60,12 @@ class AdminPanel {
     }
 
     formDataToRecipe(formData) {
-        const recipe = {
+        return {
             id: formData.get('id'),
             title: formData.get('title'),
             description: formData.get('description'),
             primaryImage: formData.get('primaryImage') || '',
-            secondaryImages: [], // For simplicity, not implementing secondary images in admin form
+            secondaryImages: [],
             ingredients: formData.get('ingredients').split('\n').filter(i => i.trim()),
             instructions: formData.get('instructions').split('\n').filter(i => i.trim()).map((text, index) => ({
                 step: index + 1,
@@ -83,11 +79,9 @@ class AdminPanel {
             category: formData.get('category'),
             status: formData.get('status')
         };
-        return recipe;
     }
 
     addRecipe(recipe) {
-        // Check if recipe ID already exists
         if (this.recipes.find(r => r.id === recipe.id)) {
             alert('Recipe ID already exists. Please use a different ID.');
             return;
@@ -96,7 +90,7 @@ class AdminPanel {
         this.recipes.push(recipe);
         this.saveRecipes();
         this.showRecipesList();
-        this.resetForm();
+        resetForm();
         alert('Recipe added successfully!');
     }
 
@@ -106,7 +100,7 @@ class AdminPanel {
             this.recipes[index] = recipe;
             this.saveRecipes();
             this.showRecipesList();
-            this.resetForm();
+            resetForm();
             this.editingRecipe = null;
             alert('Recipe updated successfully!');
         }
@@ -147,7 +141,6 @@ class AdminPanel {
         form.querySelector('input[name="tags"]').value = recipe.tags.join(', ');
         form.querySelector('select[name="status"]').value = recipe.status;
 
-        // Show primary image preview
         if (recipe.primaryImage) {
             const preview = document.getElementById('primary-preview');
             preview.src = recipe.primaryImage;
@@ -156,15 +149,12 @@ class AdminPanel {
     }
 
     saveRecipes() {
-        // Save to localStorage for immediate use
         localStorage.setItem('recipes', JSON.stringify(this.recipes));
         
-        // Create downloadable JSON file for manual update
         const dataStr = JSON.stringify(this.recipes, null, 2);
         const dataBlob = new Blob([dataStr], {type: 'application/json'});
         const url = URL.createObjectURL(dataBlob);
         
-        // Show download link
         const downloadDiv = document.getElementById('download-recipes') || this.createDownloadDiv();
         downloadDiv.innerHTML = `
             <div class="alert alert-info mt-3">
@@ -175,8 +165,6 @@ class AdminPanel {
                 <small class="d-block mt-2">Replace the file in data/recipes.json and commit to GitHub to publish changes.</small>
             </div>
         `;
-        
-        console.log('Recipes saved. Download the updated JSON file to publish changes.');
     }
     
     createDownloadDiv() {
@@ -242,7 +230,6 @@ class AdminPanel {
     }
 }
 
-// Global functions
 async function login() {
     const password = document.getElementById('admin-password').value;
     
@@ -285,204 +272,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (passwordInput) {
         passwordInput.focus();
         passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
-    }
-});ing'}">
-                                        ${recipe.status}
-                                    </span>
-                                </td>
-                                <td>
-                                    <button onclick="adminPanel.editRecipe('${recipe.id}')" class="btn btn-sm btn-outline-primary me-1">
-                                        Edit
-                                    </button>
-                                    <button onclick="adminPanel.deleteRecipe('${recipe.id}')" class="btn btn-sm btn-outline-danger">
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
-        `;
-    }
-}
-
-// Global functions
-async function login() {
-    const password = document.getElementById('admin-password').value;
-    
-    if (password === 'krishna123') {
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('admin-panel').style.display = 'block';
-        
-        const adminPanel = new AdminPanel();
-        window.adminPanel = adminPanel;
-        await adminPanel.showRecipesList();
-    } else {
-        document.getElementById('login-error').style.display = 'block';
-    }
-}
-
-function showSection(sectionId) {
-    document.querySelectorAll('.admin-section').forEach(section => {
-        section.style.display = 'none';
-    });
-    document.getElementById(sectionId + '-section').style.display = 'block';
-}
-
-function resetForm() {
-    document.getElementById('recipe-form').reset();
-    document.getElementById('primary-preview').style.display = 'none';
-    document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
-    if (window.adminPanel) {
-        window.adminPanel.editingRecipe = null;
-    }
-}
-
-function logout() {
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('admin-panel').style.display = 'none';
-    document.getElementById('admin-password').value = '';
-    document.getElementById('login-error').style.display = 'none';
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const passwordInput = document.getElementById('admin-password');
-    if (passwordInput) {
-        passwordInput.focus();
-        passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
-    }
-});ment.getElementById('login-error').style.display = 'block';
-    }
-}
-
-function showSection(sectionId) {
-    document.querySelectorAll('.admin-section').forEach(section => {
-        section.style.display = 'none';
-    });
-    document.getElementById(sectionId + '-section').style.display = 'block';
-}
-
-function resetForm() {
-    document.getElementById('recipe-form').reset();
-    document.getElementById('primary-preview').style.display = 'none';
-    document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
-    if (window.adminPanel) {
-        window.adminPanel.editingRecipe = null;
-    }
-}
-
-function logout() {
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('admin-panel').style.display = 'none';
-    document.getElementById('admin-password').value = '';
-    document.getElementById('login-error').style.display = 'none';
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const passwordInput = document.getElementById('admin-password');
-    if (passwordInput) {
-        passwordInput.focus();
-        passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
-    }
-});ntById('login-error').style.display = 'block';
-    }
-}
-
-function showSection(sectionId) {
-    document.querySelectorAll('.admin-section').forEach(section => {
-        section.style.display = 'none';
-    });
-    document.getElementById(sectionId + '-section').style.display = 'block';
-}
-
-function resetForm() {
-    document.getElementById('recipe-form').reset();
-    document.getElementById('primary-preview').style.display = 'none';
-    document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
-    if (window.adminPanel) {
-        window.adminPanel.editingRecipe = null;
-    }
-}
-
-function logout() {
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('admin-panel').style.display = 'none';
-    document.getElementById('admin-password').value = '';
-    document.getElementById('login-error').style.display = 'none';
-}
-
-// Initialize admin panel when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Focus on password input
-    const passwordInput = document.getElementById('admin-password');
-    if (passwordInput) {
-        passwordInput.focus();
-        
-        // Allow Enter key to login
-        passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
-    }
-});ntById('login-error').style.display = 'block';
-    }
-}
-
-function logout() {
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('admin-panel').style.display = 'none';
-    document.getElementById('admin-password').value = '';
-    document.getElementById('login-error').style.display = 'none';
-}
-
-function showSection(sectionName) {
-    // Hide all sections
-    document.getElementById('recipes-section').style.display = 'none';
-    document.getElementById('add-recipe-section').style.display = 'none';
-    
-    // Show selected section
-    document.getElementById(sectionName + '-section').style.display = 'block';
-    
-    // Update active menu item
-    document.querySelectorAll('.list-group-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
-    // Reset form title if showing add recipe
-    if (sectionName === 'add-recipe') {
-        document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
-        resetForm();
-    }
-}
-
-function resetForm() {
-    document.getElementById('recipe-form').reset();
-    document.getElementById('primary-preview').style.display = 'none';
-    if (window.adminPanel) {
-        window.adminPanel.editingRecipe = null;
-    }
-}
-
-// Allow Enter key to login
-document.addEventListener('DOMContentLoaded', () => {
-    const passwordInput = document.getElementById('admin-password');
-    if (passwordInput) {
-        passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 login();
             }
