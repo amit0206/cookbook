@@ -252,6 +252,75 @@ async function login() {
         
         const adminPanel = new AdminPanel();
         window.adminPanel = adminPanel;
+    } else {
+        document.getElementById('login-error').style.display = 'block';
+    }
+}
+
+function showSection(sectionId) {
+    document.querySelectorAll('.admin-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId + '-section').style.display = 'block';
+}
+
+function resetForm() {
+    document.getElementById('recipe-form').reset();
+    document.getElementById('primary-preview').style.display = 'none';
+    document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
+    if (window.adminPanel) {
+        window.adminPanel.editingRecipe = null;
+    }
+}
+
+function logout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('admin-panel').style.display = 'none';
+    document.getElementById('admin-password').value = '';
+    document.getElementById('login-error').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('admin-password');
+    if (passwordInput) {
+        passwordInput.focus();
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    }
+});ing'}">
+                                        ${recipe.status}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button onclick="adminPanel.editRecipe('${recipe.id}')" class="btn btn-sm btn-outline-primary me-1">
+                                        Edit
+                                    </button>
+                                    <button onclick="adminPanel.deleteRecipe('${recipe.id}')" class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+}
+
+// Global functions
+async function login() {
+    const password = document.getElementById('admin-password').value;
+    
+    if (password === 'krishna123') {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        
+        const adminPanel = new AdminPanel();
+        window.adminPanel = adminPanel;
         await adminPanel.showRecipesList();
     } else {
         document.getElementById('login-error').style.display = 'block';
