@@ -13,6 +13,14 @@ class AdminPanel {
 
     async loadRecipes() {
         try {
+            // Try to load from localStorage first (for recent changes)
+            const localRecipes = localStorage.getItem('recipes');
+            if (localRecipes) {
+                this.recipes = JSON.parse(localRecipes);
+                return;
+            }
+            
+            // Fallback to original JSON file
             const response = await fetch('data/recipes.json');
             this.recipes = await response.json();
         } catch (error) {
@@ -148,10 +156,34 @@ class AdminPanel {
     }
 
     saveRecipes() {
-        // In a real implementation, this would save to the server
-        // For now, we'll just update localStorage for demo purposes
+        // Save to localStorage for immediate use
         localStorage.setItem('recipes', JSON.stringify(this.recipes));
-        console.log('Recipes saved to localStorage. In production, this would save to the server.');
+        
+        // Create downloadable JSON file for manual update
+        const dataStr = JSON.stringify(this.recipes, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        
+        // Show download link
+        const downloadDiv = document.getElementById('download-recipes') || this.createDownloadDiv();
+        downloadDiv.innerHTML = `
+            <div class="alert alert-info mt-3">
+                <strong>Recipe updated!</strong> 
+                <a href="${url}" download="recipes.json" class="btn btn-sm btn-primary ms-2">
+                    Download Updated recipes.json
+                </a>
+                <small class="d-block mt-2">Replace the file in data/recipes.json and commit to GitHub to publish changes.</small>
+            </div>
+        `;
+        
+        console.log('Recipes saved. Download the updated JSON file to publish changes.');
+    }
+    
+    createDownloadDiv() {
+        const div = document.createElement('div');
+        div.id = 'download-recipes';
+        document.getElementById('recipes-section').appendChild(div);
+        return div;
     }
 
     showRecipesList() {
@@ -211,17 +243,92 @@ class AdminPanel {
 }
 
 // Global functions
-function login() {
+async function login() {
     const password = document.getElementById('admin-password').value;
-    const adminPanel = new AdminPanel();
     
-    if (password === adminPanel.adminPassword) {
+    if (password === 'krishna123') {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'block';
+        
+        const adminPanel = new AdminPanel();
         window.adminPanel = adminPanel;
-        adminPanel.showRecipesList();
+        await adminPanel.showRecipesList();
     } else {
         document.getElementById('login-error').style.display = 'block';
+    }
+}
+
+function showSection(sectionId) {
+    document.querySelectorAll('.admin-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId + '-section').style.display = 'block';
+}
+
+function resetForm() {
+    document.getElementById('recipe-form').reset();
+    document.getElementById('primary-preview').style.display = 'none';
+    document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
+    if (window.adminPanel) {
+        window.adminPanel.editingRecipe = null;
+    }
+}
+
+function logout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('admin-panel').style.display = 'none';
+    document.getElementById('admin-password').value = '';
+    document.getElementById('login-error').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('admin-password');
+    if (passwordInput) {
+        passwordInput.focus();
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    }
+});ment.getElementById('login-error').style.display = 'block';
+    }
+}
+
+function showSection(sectionId) {
+    document.querySelectorAll('.admin-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId + '-section').style.display = 'block';
+}
+
+function resetForm() {
+    document.getElementById('recipe-form').reset();
+    document.getElementById('primary-preview').style.display = 'none';
+    document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
+    if (window.adminPanel) {
+        window.adminPanel.editingRecipe = null;
+    }
+}
+
+function logout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('admin-panel').style.display = 'none';
+    document.getElementById('admin-password').value = '';
+    document.getElementById('login-error').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('admin-password');
+    if (passwordInput) {
+        passwordInput.focus();
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    }
+});ntById('login-error').style.display = 'block';
     }
 }
 
