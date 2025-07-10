@@ -1,0 +1,177 @@
+[
+  {
+    "id": "butter-chicken",
+    "title": "Authentic Butter Chicken",
+    "description": "Creamy and rich butter chicken with tender pieces of chicken in a tomato-based curry sauce.",
+    "primaryImage": "assets/images/butter-chicken-primary.jpg",
+    "secondaryImages": [
+      {
+        "step": 2,
+        "url": "assets/images/butter-chicken-marinate.jpg",
+        "description": "Marinated chicken pieces"
+      },
+      {
+        "step": 4,
+        "url": "assets/images/butter-chicken-sauce.jpg",
+        "description": "Creamy tomato sauce"
+      }
+    ],
+    "ingredients": [
+      "500g boneless chicken, cut into pieces",
+      "1 cup plain yogurt",
+      "2 tsp ginger-garlic paste",
+      "1 tsp red chili powder",
+      "1/2 tsp turmeric powder",
+      "Salt to taste",
+      "2 tbsp butter",
+      "1 large onion, finely chopped",
+      "400g canned tomatoes",
+      "1/2 cup heavy cream",
+      "1 tsp garam masala",
+      "Fresh cilantro for garnish"
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "In a bowl, mix yogurt, ginger-garlic paste, red chili powder, turmeric, and salt."
+      },
+      {
+        "step": 2,
+        "text": "Add chicken pieces to the marinade and let it rest for 30 minutes."
+      },
+      {
+        "step": 3,
+        "text": "Heat butter in a pan and cook the marinated chicken until golden brown. Set aside."
+      },
+      {
+        "step": 4,
+        "text": "In the same pan, sauté onions until golden. Add tomatoes and cook until soft."
+      },
+      {
+        "step": 5,
+        "text": "Blend the tomato mixture until smooth. Return to pan, add cream and garam masala."
+      },
+      {
+        "step": 6,
+        "text": "Add the cooked chicken back to the sauce. Simmer for 10 minutes. Garnish with cilantro."
+      }
+    ],
+    "prepTime": "45 mins",
+    "cookTime": "30 mins",
+    "totalTime": "1 hr 15 mins",
+    "servings": "4",
+    "tags": ["indian", "chicken", "curry", "main-course"],
+    "category": "main-course",
+    "status": "published"
+  },
+  {
+    "id": "masala-chai",
+    "title": "Traditional Masala Chai",
+    "description": "Aromatic spiced tea that's perfect for any time of the day.",
+    "primaryImage": "assets/images/masala-chai-primary.jpg",
+    "secondaryImages": [
+      {
+        "step": 3,
+        "url": "assets/images/chai-boiling.jpg",
+        "description": "Tea boiling with spices"
+      }
+    ],
+    "ingredients": [
+      "2 cups water",
+      "1 cup whole milk",
+      "2 tsp black tea leaves",
+      "4-5 green cardamom pods",
+      "1 inch cinnamon stick",
+      "4-5 black peppercorns",
+      "1 inch fresh ginger, sliced",
+      "Sugar to taste"
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Crush the cardamom, cinnamon, and peppercorns lightly."
+      },
+      {
+        "step": 2,
+        "text": "In a saucepan, add water, crushed spices, and ginger. Bring to boil."
+      },
+      {
+        "step": 3,
+        "text": "Add tea leaves and boil for 2-3 minutes until the color darkens."
+      },
+      {
+        "step": 4,
+        "text": "Add milk and sugar. Boil for another 3-4 minutes."
+      },
+      {
+        "step": 5,
+        "text": "Strain the chai and serve hot."
+      }
+    ],
+    "prepTime": "5 mins",
+    "cookTime": "10 mins",
+    "totalTime": "15 mins",
+    "servings": "2",
+    "tags": ["beverage", "indian", "tea", "spiced"],
+    "category": "beverage",
+    "status": "published"
+  },
+  {
+    "id": "gulab-jamun",
+    "title": "Soft Gulab Jamun",
+    "description": "Sweet, soft dumplings soaked in fragrant sugar syrup.",
+    "primaryImage": "assets/images/gulab-jamun-primary.jpg",
+    "secondaryImages": [
+      {
+        "step": 2,
+        "url": "assets/images/gulab-jamun-dough.jpg",
+        "description": "Soft dough for gulab jamun"
+      },
+      {
+        "step": 4,
+        "url": "assets/images/gulab-jamun-frying.jpg",
+        "description": "Frying the gulab jamuns"
+      }
+    ],
+    "ingredients": [
+      "1 cup milk powder",
+      "1/4 cup all-purpose flour",
+      "1/4 tsp baking soda",
+      "2-3 tbsp milk",
+      "Oil for deep frying",
+      "1 cup sugar",
+      "1 cup water",
+      "4-5 green cardamom pods",
+      "1 tsp rose water"
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Mix milk powder, flour, and baking soda. Add milk gradually to form a soft dough."
+      },
+      {
+        "step": 2,
+        "text": "Let the dough rest for 10 minutes, then make small smooth balls."
+      },
+      {
+        "step": 3,
+        "text": "For syrup: Boil sugar, water, and cardamom until slightly thick. Add rose water."
+      },
+      {
+        "step": 4,
+        "text": "Heat oil and deep fry the balls on low heat until golden brown."
+      },
+      {
+        "step": 5,
+        "text": "Immediately add the hot gulab jamuns to the warm syrup. Let them soak for 2 hours."
+      }
+    ],
+    "prepTime": "30 mins",
+    "cookTime": "20 mins",
+    "totalTime": "50 mins",
+    "servings": "6",
+    "tags": ["dessert", "indian", "sweet", "festival"],
+    "category": "dessert",
+    "status": "published"
+  }
+]

@@ -1,0 +1,48 @@
+# Jekyll configuration for GitHub Pages
+title: "Krishna's Cookbook"
+description: "Delicious recipes from Krishna's kitchen - traditional and modern dishes with step-by-step instructions"
+url: "https://yourusername.github.io"
+baseurl: "/KrishnasCookBook"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Include files
+include:
+  - _pages
+
+# Collections
+collections:
+  recipes:
+    output: false
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO settings
+author: Krishna
+twitter:
+  username: krishnascookbook
+facebook:
+  app_id: 
+  publisher: 
+
+# Social links
+social:
+  name: Krishna's Cookbook
+  links:
+    - https://twitter.com/krishnascookbook
+    - https://facebook.com/krishnascookbook
