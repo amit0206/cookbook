@@ -225,6 +225,47 @@ function login() {
     }
 }
 
+function showSection(sectionId) {
+    document.querySelectorAll('.admin-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId + '-section').style.display = 'block';
+}
+
+function resetForm() {
+    document.getElementById('recipe-form').reset();
+    document.getElementById('primary-preview').style.display = 'none';
+    document.querySelector('#add-recipe-section h3').textContent = 'Add New Recipe';
+    if (window.adminPanel) {
+        window.adminPanel.editingRecipe = null;
+    }
+}
+
+function logout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('admin-panel').style.display = 'none';
+    document.getElementById('admin-password').value = '';
+    document.getElementById('login-error').style.display = 'none';
+}
+
+// Initialize admin panel when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Focus on password input
+    const passwordInput = document.getElementById('admin-password');
+    if (passwordInput) {
+        passwordInput.focus();
+        
+        // Allow Enter key to login
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    }
+});ntById('login-error').style.display = 'block';
+    }
+}
+
 function logout() {
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('admin-panel').style.display = 'none';
