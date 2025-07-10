@@ -208,8 +208,16 @@ class RecipeApp {
     }
 
     getImageUrl(imagePath) {
-        // Return placeholder if image doesn't exist
-        return imagePath || 'https://via.placeholder.com/400x300/d4691a/ffffff?text=Recipe+Image';
+        // Return placeholder if image doesn't exist or is empty
+        if (!imagePath || imagePath.trim() === '') {
+            return 'https://via.placeholder.com/400x300/d4691a/ffffff?text=Recipe+Image';
+        }
+        return imagePath;
+    }
+    
+    handleImageError(img) {
+        img.src = 'https://via.placeholder.com/400x300/d4691a/ffffff?text=Image+Not+Found';
+        img.onerror = null; // Prevent infinite loop
     }
 
     filterByCategory(category) {

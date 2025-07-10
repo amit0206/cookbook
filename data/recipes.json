@@ -3,16 +3,16 @@
     "id": "butter-chicken",
     "title": "Authentic Butter Chicken",
     "description": "Creamy and rich butter chicken with tender pieces of chicken in a tomato-based curry sauce.",
-    "primaryImage": "assets/images/butter-chicken-primary.jpg",
+    "primaryImage": "https://via.placeholder.com/400x300/d4691a/ffffff?text=Butter+Chicken",
     "secondaryImages": [
       {
         "step": 2,
-        "url": "assets/images/butter-chicken-marinate.jpg",
+        "url": "https://via.placeholder.com/400x200/8B4513/ffffff?text=Marinated+Chicken",
         "description": "Marinated chicken pieces"
       },
       {
         "step": 4,
-        "url": "assets/images/butter-chicken-sauce.jpg",
+        "url": "https://via.placeholder.com/400x200/FF6347/ffffff?text=Creamy+Sauce",
         "description": "Creamy tomato sauce"
       }
     ],
@@ -68,11 +68,11 @@
     "id": "masala-chai",
     "title": "Traditional Masala Chai",
     "description": "Aromatic spiced tea that's perfect for any time of the day.",
-    "primaryImage": "assets/images/masala-chai-primary.jpg",
+    "primaryImage": "https://via.placeholder.com/400x300/8B4513/ffffff?text=Masala+Chai",
     "secondaryImages": [
       {
         "step": 3,
-        "url": "assets/images/chai-boiling.jpg",
+        "url": "https://via.placeholder.com/400x200/CD853F/ffffff?text=Boiling+Tea",
         "description": "Tea boiling with spices"
       }
     ],
@@ -120,16 +120,16 @@
     "id": "gulab-jamun",
     "title": "Soft Gulab Jamun",
     "description": "Sweet, soft dumplings soaked in fragrant sugar syrup.",
-    "primaryImage": "assets/images/gulab-jamun-primary.jpg",
+    "primaryImage": "https://via.placeholder.com/400x300/8B0000/ffffff?text=Gulab+Jamun",
     "secondaryImages": [
       {
         "step": 2,
-        "url": "assets/images/gulab-jamun-dough.jpg",
+        "url": "https://via.placeholder.com/400x200/DEB887/ffffff?text=Soft+Dough",
         "description": "Soft dough for gulab jamun"
       },
       {
         "step": 4,
-        "url": "assets/images/gulab-jamun-frying.jpg",
+        "url": "https://via.placeholder.com/400x200/DAA520/ffffff?text=Frying+Process",
         "description": "Frying the gulab jamuns"
       }
     ],
